@@ -52,6 +52,10 @@ app.get('/api/dashboard-data', async (req, res) => {
         "SPECULATIONS": [
           // Array of top 4 global macro themes.
           // Fields: theme, news, stocks, reason, sectorTrend, stockTrend
+        ],
+        "LIVE_NEWS": [
+          // Array of top 4 latest live news items today impacting the Indian markets.
+          // Fields: headline (string), summary (string), impactedStocks (array of strings, e.g. ["RELIANCE", "TCS"]), sentiment ('Bullish'|'Bearish'|'Neutral')
         ]
       }
       
@@ -148,6 +152,20 @@ function getMockData() {
     ],
     "SPECULATIONS": [
       { "theme": "US Tariff Adjustments on Tech", "news": "New speculative tariffs impact IT service exporters.", "stocks": "TCS, INFY", "reason": "Higher operational costs and visa restrictions directly threaten operating margins.", "sectorTrend": "Bearish", "stockTrend": "Oversold / Weak" }
+    ],
+    "LIVE_NEWS": [
+      {
+        "headline": "RBI Keeps Repo Rate Unchanged",
+        "summary": "The Reserve Bank of India has decided to keep the repo rate unchanged at 6.5%, matching market expectations.",
+        "impactedStocks": ["HDFCBANK", "ICICIBANK", "SBIN"],
+        "sentiment": "Bullish"
+      },
+      {
+        "headline": "Government Announces New EV Subsidies",
+        "summary": "A fresh round of subsidies for electric vehicle manufacturers aims to boost domestic production and sales.",
+        "impactedStocks": ["TATAMOTORS", "M&M", "OLECTRA"],
+        "sentiment": "Bullish"
+      }
     ]
   };
 }
