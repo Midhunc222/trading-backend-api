@@ -20,13 +20,16 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 // Define AI Pipeline Route
 app.get('/api/dashboard-data', async (req, res) => {
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const model = genAI.getGenerativeModel({ 
+      model: "gemini-2.5-flash",
+      tools: [{ googleSearch: {} }] // ENABLE LIVE GOOGLE SEARCH GROUNDING
+    });
 
     const prompt = `
       You are an expert AI quantitative analyst and portfolio manager for the Indian Stock Market. The current date is February 22, 2026.
       Generate a dynamic JSON payload for a pre-market dashboard. 
       The JSON MUST strictly follow this exact structure, containing highly specific, realistic technicals and macro events for today.
-      CRITICAL: You MUST use currently valid, active NSE stock tickers as of 2026. Do NOT use outdated or demerged tickers (for example, TATAMOTORS demerged, do not use it).
+      CRITICAL: You MUST use the Google Search tool to find the LATEST real-time price of any stock you pick (e.g. RELIANCE on NSE) before calculating Entry, StopLoss, and Target. Do NOT output old hallucinated prices like 2980 for RELIANCE if the current price is ~1419. Use currently valid, active NSE stock tickers.
       
       Structure:
       {
