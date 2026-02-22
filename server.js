@@ -35,15 +35,11 @@ app.get('/api/dashboard-data', async (req, res) => {
       {
         "PICKS": [
           // Array of exactly 4 active swing trade stocks. Make sure exactly 2 stocks only pass "Daily" timeframe testing, and exactly 2 completely different stocks only pass "Weekly" timeframe testing.
-          // Must include exactly: ticker, type ('Swing'|'Intraday'), strategy, entry, stopLoss, target, holdingTime, reason, sectorTrend ('Bullish'|'Bearish'), speculationTheme (string or null), passingTimeframes (MUST BE EITHER ["Daily"] OR ["Weekly"]), timeframes: { daily: { rsi, adx, volume, delivery }, weekly: { rsi, adx, volume, delivery } }
+          // Must include exactly: ticker, type ('Swing'|'Intraday'), strategy, entry, stopLoss, target, holdingTime, reason, sectorTrend ('Bullish'|'Bearish'), speculationTheme (string or null), passingTimeframes (MUST BE EITHER ["Daily"] OR ["Weekly"]), timeframes: { daily: { rsi, adx, volume, delivery }, weekly: { rsi, adx, volume, delivery } }, backtestData: { totalTradesExecuted: number, successPercentage: string }
         ],
         "SECTORS": [
           // Array of exactly 4 sectors.
           // Fields: name, trend, reason
-        ],
-        "CURRENCY": [
-          // Array of global currency/DXY data.
-          // Fields: pair, value, change, signal
         ],
         "GLOBAL_MARKETS": [
           // Array of US, China, Russia, Gold, Silver, ADRs.
@@ -121,7 +117,8 @@ function getMockData() {
         "timeframes": {
           "daily": { "rsi": 65, "adx": 28, "volume": "2.5x To 20D", "delivery": "Up 4 Days" },
           "weekly": { "rsi": 68, "adx": 31, "volume": "1.8x To 20W", "delivery": "Strong" }
-        }
+        },
+        "backtestData": { "totalTradesExecuted": 84, "successPercentage": "68%" }
       },
       {
         "ticker": "HAL",
@@ -138,7 +135,8 @@ function getMockData() {
         "timeframes": {
           "daily": { "rsi": 71, "adx": 35, "volume": "3.1x To 20D", "delivery": "Up 3 Days" },
           "weekly": { "rsi": 74, "adx": 42, "volume": "2.1x To 20W", "delivery": "Heavy Accum." }
-        }
+        },
+        "backtestData": { "totalTradesExecuted": 112, "successPercentage": "74%" }
       }
     ],
     "SECTORS": [
