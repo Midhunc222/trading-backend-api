@@ -35,7 +35,7 @@ app.get('/api/dashboard-data', async (req, res) => {
       {
         "PICKS": [
           // Array of exactly 4 active swing trade stocks. Make sure exactly 2 stocks only pass "Daily" timeframe testing, and exactly 2 completely different stocks only pass "Weekly" timeframe testing.
-          // Must include exactly: ticker, type ('Swing'|'Intraday'), strategy, entry, stopLoss, target, holdingTime, reason, sectorTrend ('Bullish'|'Bearish'), speculationTheme (string or null), passingTimeframes (MUST BE EITHER ["Daily"] OR ["Weekly"]), timeframes: { daily: { rsi, adx, volume, delivery }, weekly: { rsi, adx, volume, delivery } }, backtestData: { totalTradesExecuted: number, successPercentage: string, duration: string }
+          // Must include exactly: ticker, type ('Swing'|'Intraday'), strategy, entry, stopLoss, target, holdingTime, reason, sectorTrend ('Bullish'|'Bearish'), speculationTheme (string or null), passingTimeframes (MUST BE EITHER ["Daily"] OR ["Weekly"]), timeframes: { daily: { rsi, adx, volume, delivery }, weekly: { rsi, adx, volume, delivery } }, backtestData: { totalTradesExecuted: number, successPercentage: string, duration: string }, goldenCrossover: boolean
         ],
         "SECTORS": [
           // Array of exactly 4 sectors.
@@ -59,6 +59,8 @@ app.get('/api/dashboard-data', async (req, res) => {
       1. All numerical strings with signs (like "+0.82%" or "-0.15%") MUST be enclosed in double quotes. Do not output unquoted numbers with plus signs.
       2. Respond ONLY with the raw JSON object. Do not include javascript or markdown formatting like \`\`\`json.
       3. ABSOLUTE LOGICAL CONSISTENCY: The AI MUST cross-reference its own output. If a stock (e.g., RELIANCE) is listed in PICKS as 'Bullish', it MUST NOT appear in LIVE_NEWS or SPECULATIONS with a 'Bearish' sentiment, and vice versa. Contradictory signals for the same stock across different sections of the dashboard are strictly forbidden.
+      4. STRONGLY ENFORCED: In 'PICKS', you MUST provide the 'duration' string inside 'backtestData' (e.g. "Last 1 Year", "Last 6 Months", "Since 2020"). DO NOT OMIT THIS FIELD.
+      5. STRONGLY ENFORCED: In 'PICKS', you MUST provide 'goldenCrossover' as a boolean (true if 50 SMA recently crossed above 200 SMA, false otherwise).
     `;
 
     // Commenting out the actual API call until you provide your key in the .env file
@@ -119,7 +121,8 @@ function getMockData() {
           "daily": { "rsi": 65, "adx": 28, "volume": "2.5x To 20D", "delivery": "Up 4 Days" },
           "weekly": { "rsi": 68, "adx": 31, "volume": "1.8x To 20W", "delivery": "Strong" }
         },
-        "backtestData": { "totalTradesExecuted": 84, "successPercentage": "68%", "duration": "Last 1 Year" }
+        "backtestData": { "totalTradesExecuted": 84, "successPercentage": "68%", "duration": "Last 1 Year" },
+        "goldenCrossover": true
       },
       {
         "ticker": "HAL",
@@ -137,7 +140,8 @@ function getMockData() {
           "daily": { "rsi": 71, "adx": 35, "volume": "3.1x To 20D", "delivery": "Up 3 Days" },
           "weekly": { "rsi": 74, "adx": 42, "volume": "2.1x To 20W", "delivery": "Heavy Accum." }
         },
-        "backtestData": { "totalTradesExecuted": 112, "successPercentage": "74%", "duration": "Last 3 Years" }
+        "backtestData": { "totalTradesExecuted": 112, "successPercentage": "74%", "duration": "Last 3 Years" },
+        "goldenCrossover": false
       }
     ],
     "SECTORS": [
