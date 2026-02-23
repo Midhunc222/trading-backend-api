@@ -35,7 +35,8 @@ app.get('/api/dashboard-data', async (req, res) => {
       {
         "PICKS": [
           // Array of exactly 4 active swing trade stocks. Make sure exactly 2 stocks only pass "Daily" timeframe testing, and exactly 2 completely different stocks only pass "Weekly" timeframe testing.
-          // MUST include EXACTLY these keys: "ticker", "type" ("Swing"|"Intraday"), "strategy", "entry", "stopLoss", "target", "holdingTime", "reason", "sectorTrend" ("Bullish"|"Bearish"), "speculationTheme" (string or null), "passingTimeframes" (string array), "timeframes" (object containing daily & weekly technicals), "backtestData" (object: MUST BE {"totalTradesExecuted": number, "successPercentage": string, "duration": string}), "goldenCrossover" (MUST BE boolean)
+          // MUST include EXACTLY THESE KEYS with this exact nested structure:
+          // "ticker" (string), "type" ('Swing'|'Intraday'), "strategy" (string), "entry" (string), "stopLoss" (string), "target" (string), "holdingTime" (string), "reason" (string), "sectorTrend" ('Bullish'|'Bearish'), "speculationTheme" (string or null), "passingTimeframes" (string array, e.g. ["Daily"]), "timeframes": { "daily": { "rsi": number, "adx": number, "volume": string, "delivery": string }, "weekly": { "rsi": number, "adx": number, "volume": string, "delivery": string } }, "backtestData": { "totalTradesExecuted": number, "successPercentage": string, "duration": string }, "goldenCrossover" (boolean)
         ],
         "SECTORS": [
           // Array of exactly 4 sectors.
