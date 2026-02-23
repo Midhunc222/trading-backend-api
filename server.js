@@ -52,7 +52,19 @@ app.get('/api/dashboard-data', async (req, res) => {
         "LIVE_NEWS": [
           // Array of top 4 latest live news items today impacting the Indian markets.
           // Fields: headline (string), summary (string), impactedStocks (array of strings, e.g. ["RELIANCE", "TCS"]), sentiment ('Bullish'|'Bearish'|'Neutral')
-        ]
+        ],
+        "CORE_MACRO": {
+          // Object containing India VIX and Daily Catalyst.
+          // Fields: vixValue (string, e.g. "14.36 (+6.70%)"), vixChange (string), vixContext (string), dailyCatalyst (string)
+        },
+        "PRE_MARKET": {
+          // Object containing Pre-Market Prediction.
+          // Fields: prediction (string, exactly "GAP UP", "GAP DOWN", or "FLAT"), directionIcon (str, "↗", "↘", or "→"), reason (string)
+        },
+        "INSTITUTIONAL_FLOW": {
+          // Object containing FII/DII Net Cash Flow.
+          // Fields: fiiNet (string, e.g. "-₹934 Cr"), fiiStatus ("Bearish" | "Bullish"), diiNet (string, e.g. "+₹2,637 Cr"), diiStatus ("Bearish" | "Bullish")
+        }
       }
       
       CRITICAL INSTRUCTIONS FOR VALID JSON:
@@ -169,6 +181,23 @@ function getMockData() {
         "impactedStocks": ["TATAMOTORS", "M&M", "OLECTRA"],
         "sentiment": "Bullish"
       }
-    ]
+    ],
+    "CORE_MACRO": {
+      "vixValue": "14.36 (+6.70%)",
+      "vixChange": "+6.70%",
+      "vixContext": "A spike near 15 suggests traders are paying higher premiums for Put options (insurance) ahead of weekend geopolitical news. Expect gap-up/down morning openings. Strict Stop-Losses required.",
+      "dailyCatalyst": "Markets tracking potential US-India tariff impact and ongoing Middle East resolutions after significant early-week volatility."
+    },
+    "PRE_MARKET": {
+      "prediction": "GAP UP",
+      "directionIcon": "↗",
+      "reason": "Tech/ADR strength outweighs China weakness. Expect Nifty open +50/70 pts. Buy dips near VWAP."
+    },
+    "INSTITUTIONAL_FLOW": {
+      "fiiNet": "-₹934 Cr",
+      "fiiStatus": "Bearish",
+      "diiNet": "+₹2,637 Cr",
+      "diiStatus": "Bullish"
+    }
   };
 }
