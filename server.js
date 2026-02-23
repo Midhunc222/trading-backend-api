@@ -58,6 +58,7 @@ app.get('/api/dashboard-data', async (req, res) => {
       CRITICAL INSTRUCTIONS FOR VALID JSON:
       1. All numerical strings with signs (like "+0.82%" or "-0.15%") MUST be enclosed in double quotes. Do not output unquoted numbers with plus signs.
       2. Respond ONLY with the raw JSON object. Do not include javascript or markdown formatting like \`\`\`json.
+      3. ABSOLUTE LOGICAL CONSISTENCY: The AI MUST cross-reference its own output. If a stock (e.g., RELIANCE) is listed in PICKS as 'Bullish', it MUST NOT appear in LIVE_NEWS or SPECULATIONS with a 'Bearish' sentiment, and vice versa. Contradictory signals for the same stock across different sections of the dashboard are strictly forbidden.
     `;
 
     // Commenting out the actual API call until you provide your key in the .env file
